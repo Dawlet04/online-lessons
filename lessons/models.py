@@ -84,6 +84,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
     title = models.CharField(max_length=200)
     video_url = models.URLField(blank=True, null=True)
+    video = models.FileField(upload_to='films/')
     duration = models.IntegerField(help_text='Длительность в минутах', blank=True, null=True)
     is_free = models.BooleanField(default=False, help_text='Бесплатный урок для предпросмотра')
     sequence_number = models.IntegerField(default=1, help_text='Порядковый номер урока')
@@ -178,6 +179,8 @@ class Payment(models.Model):
         verbose_name = 'Платеж'
         verbose_name_plural = 'Платежи'
         ordering = ['-created_at']
+
+
 
 
 
