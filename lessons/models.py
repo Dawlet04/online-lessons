@@ -180,15 +180,23 @@ class Payment(models.Model):
         verbose_name_plural = 'Платежи'
         ordering = ['-created_at']
 
-
 class Homework(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE,  related_name='homework')
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework')
-    homework = models.FileField(upload_to='homeworks/')
-    deadline = models.DateTimeField(help_text='Cрок сдачи')
-    
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homeworks')
+    title = models.CharField(max_length=200, help_text='Название задания')
+    homework = models.FileField(upload_to='homeworks/', blank=True, null=True)
+    deadline = models.DateTimeField(help_text='Срок сдачи', blank=True, null=True)
+    max_score = models.IntegerField(default=100, help_text='Максимальный балл')
+    created_at = models.DateTimeField(auto_now_add=True)
 
+
+    def str(self):
+        return f"{self.lesson.title} - {self.title}"
     
+    class Meta:
+        verbose_name = 'Домашнее задание'
+        verbose_name_plural = 'Домашние задания'
+        ordering = ['-created_at']
+
 
 
 

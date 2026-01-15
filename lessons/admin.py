@@ -1,14 +1,14 @@
 from django.contrib import admin
-from .models import Roles, Users, Teachers, Payment, Enrollments, Categories, Courses,Lessons, Lesson_progress, Review
+from .models import Role, Users, Teacher, Payment, Enrollment, Category, Course, LessonProgress, Review, Lesson
 
-admin.site.register(Roles)
+admin.site.register(Role)
 admin.site.register(Users)
-admin.site.register(Lesson_progress)
-admin.site.register(Lessons)
-admin.site.register(Enrollments)
+admin.site.register(LessonProgress)
+admin.site.register(Lesson)
+admin.site.register(Enrollment)
 admin.site.register(Payment)
-admin.site.register(Teachers)
-admin.site.register(Categories)
-admin.site.register(Courses)
+admin.site.register(Teacher)
+admin.site.register(Category)
+admin.site.register(Course)
 admin.site.register(Review)
 # Register your models here.
