@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class CustomUser(AbstractUser):
+class Users(AbstractUser):
     phone_num = models.CharField(max_length=20, blank=True, null=True)
     avatar = models.ImageField(upload_to='users/', blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
@@ -29,7 +29,7 @@ class Role(models.Model):
 
 
 class Teacher(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='teacher_profile')
+    user = models.OneToOneField(Users, on_delete=models.CASCADE, related_name='teacher_profile')
     subject = models.CharField(max_length=100)
     experience_years = models.IntegerField(default=0)
     bio = models.TextField(blank=True, null=True)
@@ -108,7 +108,7 @@ class Enrollment(models.Model):
         ('cancelled', 'Отменен'),
     ]
     
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='enrollments')
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='enrollments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
     purchase_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
@@ -125,7 +125,7 @@ class Enrollment(models.Model):
 
 
 class LessonProgress(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='lesson_progress')
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='lesson_progress')
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='progress')
     is_completed = models.BooleanField(default=False)
     completed_at = models.DateTimeField(blank=True, null=True)
@@ -140,7 +140,7 @@ class LessonProgress(models.Model):
 
 
 class Review(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='reviews')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField(choices=[(i, str(i)) for i in range(1, 6)], help_text='Оценка от 1 до 5')
     comment = models.TextField(blank=True, null=True)
@@ -166,7 +166,7 @@ class Payment(models.Model):
         ('click', 'Click'),
     ]
     
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='payments')
+    user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='payments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='payments')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     payment_type = models.CharField(max_length=50, choices=PAYMENT_TYPES)
@@ -181,7 +181,14 @@ class Payment(models.Model):
         ordering = ['-created_at']
 
 
+class Homework(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE,  related_name='homework')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homework')
+    homework = models.FileField(upload_to='homeworks/')
+    deadline = models.DateTimeField(help_text='Cрок сдачи')
+    
 
+    
 
 
 
