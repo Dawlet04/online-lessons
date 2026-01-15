@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'course.wsgi.application'
-
+AUTH_USER_MODEL = "movie.Users"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

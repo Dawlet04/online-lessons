@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import Roles, Users, Teachers, Payment, Enrollments, Categories, Courses,Lessons, Lesson_progress, Review
+from .models import Roles, Users, Teachers, Payment, Enrollments, Categories, Courses,Lessons, Lesson_progress, Review, Lesson
 
 admin.site.register(Roles)
 admin.site.register(Users)
 admin.site.register(Lesson_progress)
-admin.site.register(Lessons)
+admin.site.register(Lesson)
 admin.site.register(Enrollments)
 admin.site.register(Payment)
 admin.site.register(Teachers)
